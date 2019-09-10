@@ -24,8 +24,10 @@ app.use(cors());
 
 const productsRoutes = require('./api/routes/products')
 const ordersRoutes = require('./api/routes/orders')
+const userRoutes = require('./api/routes/user')
 
-mongoose.connect('mongodb+srv://Contra:' + process.env.MONGOATLAS + '@cluster0-x61mi.mongodb.net/test?retryWrites=true&w=majority',
+
+mongoose.connect('mongodb+srv://:' + "" + '@cluster0-x61mi.mongodb.net/test?retryWrites=true&w=majority',
     { useNewUrlParser: true }
 )
 app.use(view_request_using_morgan('dev'));
@@ -36,6 +38,7 @@ app.use(bodyParser.json());
 
 app.use('/products', productsRoutes);
 app.use('/orders', ordersRoutes);
+app.use('/user', userRoutes);
 
 app.use((req, res, next) => {
     const error = new Error('Not Found');

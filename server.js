@@ -14,10 +14,8 @@ const PORT = process.env.PORT || 3000
 
 
 
-
-
 // mongoose.connect('')
 
 const server = http.createServer(app);
 server.listen(PORT)
-console.log("The Server is running and listening for request on port 5000")
+console.log("The Server is running and listening for request on port " + PORT)

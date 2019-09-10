@@ -1,0 +1,3 @@
+Contra = ''
+
+module.exports = Contra;
