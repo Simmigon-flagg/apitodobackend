@@ -26,8 +26,7 @@ const productsRoutes = require('./api/routes/products')
 const ordersRoutes = require('./api/routes/orders')
 const userRoutes = require('./api/routes/user')
 
-
-mongoose.connect('mongodb+srv://:' + "" + '@cluster0-x61mi.mongodb.net/test?retryWrites=true&w=majority',
+mongoose.connect('mongodb+srv://'+process.env.mongo_username+':' + process.env.password + '@cluster0-x61mi.mongodb.net/test?retryWrites=true&w=majority',
     { useNewUrlParser: true }
 )
 app.use(view_request_using_morgan('dev'));

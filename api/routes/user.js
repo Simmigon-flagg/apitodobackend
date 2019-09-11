@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs')
-
+const jwt = require('jsonwebtoken')
 const User = require('../models/user')
 
 router.post('/signup', (req, res, next) => {
@@ -47,6 +47,41 @@ router.post('/signup', (req, res, next) => {
 
 
 });
+
+
+router.post('/login', (req, res, next) => {
+    User.find({ email: req.body.email })
+        .exec()
+        .then(users => {
+            if (users < 1) {
+                return res.status(400).json({
+                    message: "User name or password is incorrect"
+                })
+            }
+            bcrypt.compare(req.body.password, users[0].password, function (err, result) {
+                if(err){
+                    return res.status(401).json({
+                        message: 'Auth failed'
+                    })
+                }
+                if(result){
+                    return res.status(200).json({
+                        message: "Auth Successful"
+                    })
+                }
+                res.status(401).json({
+                    message: 'User name or password is incorrect'
+                })
+            });
+
+        })
+        .catch(err => {
+            res.status(500).json({
+                error: err
+            })
+        });
+})
+
 router.delete('/:userId', (req, res, next) => {
     User.remove({
         _id: req.body.userId
